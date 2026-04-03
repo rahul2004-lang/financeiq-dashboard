@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
+import Dashboard from "./pages/Dashboard";
+import Transactions from "./pages/Transactions";
+import Insights from "./pages/Insights";
+import RoleSwitcher from "./components/RoleSwitcher";
 
-function App() {
+export default function App() {
+  // ✅ MUST be inside component
+  const [dark, setDark] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className={dark ? "dark" : ""}>
+        
+        {/* Navbar */}
+        <nav className="flex justify-between p-4 bg-gray-800 text-white">
+          <div className="flex gap-4">
+            <Link to="/">Dashboard</Link>
+            <Link to="/transactions">Transactions</Link>
+            <Link to="/insights">Insights</Link>
+          </div>
+
+          <div className="flex gap-4 items-center">
+            <button
+              onClick={() => setDark(!dark)}
+              className="px-3 py-1 bg-gray-600 rounded"
+            >
+              💡
+            </button>
+
+            <RoleSwitcher />
+          </div>
+        </nav>
+
+        {/* Pages */}
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 dark:text-white">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/transactions" element={<Transactions />} />
+            <Route path="/insights" element={<Insights />} />
+          </Routes>
+        </div>
+
+      </div>
+    </BrowserRouter>
   );
 }
-
-export default App;
