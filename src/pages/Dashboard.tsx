@@ -1,6 +1,6 @@
 import { useFinanceStore } from "../stores/useFinanceStore";
 import { formatCurrency } from "../utils/formatCurrency";
-import SummaryCards from "../components/SummaryCards";
+//import SummaryCards from "../components/SummaryCards";
 
 export default function Dashboard() {
   const { transactions } = useFinanceStore();
